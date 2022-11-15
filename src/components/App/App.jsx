@@ -21,6 +21,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
+import Messenger from '../Messenger/Messenger';
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,13 @@ function App() {
               // Otherwise, show the Landing page
               <LandingPage />
             }
+          </Route>
+
+          <Route
+            exact
+            path="/messenger"
+          >
+            <Messenger />
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
