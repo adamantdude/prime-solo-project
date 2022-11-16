@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import hook from '../../hooks/useReduxStore';
 
 function RegisterForm() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [
+    [username, setUsername],
+    [password, setPassword],
+    [charFName, setFName], 
+    [charLName, setLName],
+  ] = [useState(''), useState(''), useState(''), useState('')];
+  
   const errors = useSelector((store) => store.errors);
   const dispatch = useDispatch();
 
@@ -15,6 +21,8 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
+        charFName: charFName,
+        charLName: charLName
       },
     });
   }; // end registerUser
@@ -48,6 +56,30 @@ function RegisterForm() {
             value={password}
             required
             onChange={(event) => setPassword(event.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="character_first_name">
+          Character's First Name:
+          <input
+            type="text"
+            name="char_fname"
+            value={charFName}
+            required
+            onChange={(e) => setFName(e.target.value)}
+          />
+        </label>
+      </div>
+      <div>
+        <label htmlFor="character_last_name">
+          Character's Last Name:
+          <input
+            type="text"
+            name="char_lname"
+            value={charLName}
+            required
+            onChange={(e) => setLName(e.target.value)}
           />
         </label>
       </div>

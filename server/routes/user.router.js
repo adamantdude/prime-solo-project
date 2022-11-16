@@ -17,19 +17,53 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // Handles POST request with new user data
 // The only thing different from this and every other post we've seen
 // is that the password gets encrypted before being inserted
-router.post('/register', (req, res, next) => {
-  const username = req.body.username;
-  const password = encryptLib.encryptPassword(req.body.password);
+router.post('/register', async (req, res, next) => {
+  const client = await pool.connect();
 
-  const queryText = `INSERT INTO "user" (username, password)
-    VALUES ($1, $2) RETURNING id`;
-  pool
-    .query(queryText, [username, password])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log('User registration failed: ', err);
-      res.sendStatus(500);
-    });
+  try {
+    const username = req.body.username;
+    const password = encryptLib.encryptPassword(req.body.password);
+    const charFName = req.body.charFName;
+    const charLName = req.body.charLName;
+
+    await client.query('BEGIN');
+    const charStatsCreationResult = await client.query(`
+      INSERT INTO "char_stats" VALUES (DEFAULT) RETURNING "id";
+    `)
+    const journalCreationResult = await client.query(`
+      INSERT INTO "journal" VALUES (DEFAULT) RETURNING "id";
+    `)
+    const characterCreationResult = await client.query(`
+      INSERT INTO "character" ("first_name", "last_name", "stats_id")
+      VALUES ($1, $2, $3) RETURNING "id";
+    `, [charFName, charLName, charStatsCreationResult.rows[0].id])
+
+    await client.query(`
+      INSERT INTO "user" ("username", "password", "character_id", "journal_id")
+      VALUES ($1, $2, $3, $4);
+    `, [username, password, characterCreationResult.rows[0].id, journalCreationResult.rows[0].id]);
+
+    await client.query('COMMIT');
+
+    console.log('NEW USER CREATED!');
+
+    res.sendStatus(201);
+    // const queryText = `INSERT INTO "user" (username, password)
+    //   VALUES ($1, $2) RETURNING id`;
+    // pool
+    //   .query(queryText, [username, password])
+    //   .then(() => res.sendStatus(201))
+    //   .catch((err) => {
+    //     console.log('User registration failed: ', err);
+    //     res.sendStatus(500);
+    //   });
+  } catch (err) {
+    await client.query('ROLLBACK');
+    console.log('ERROR POST /api/user', error);
+    res.sendStatus(500);
+  } finally {
+    client.release();
+  }
 });
 
 // Handles login form authenticate/login POST

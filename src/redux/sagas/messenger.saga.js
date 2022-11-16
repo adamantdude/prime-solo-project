@@ -5,12 +5,14 @@ function* messengerSaga() {
     yield takeLatest('ADD_TO_HISTORY', addHistory);
     yield takeLatest('FETCH_HISTORY', fetchHistory);
     yield takeLatest('FETCH_ROOMS', fetchRooms);
+    yield takeLatest('FETCH_USERNAME', fetchUser);
 }
 
+// When a user sends a message, put it into the database
 function* addHistory(action) {
     yield axios.post('/api/messenger', action.payload);
 
-    put({ type: 'FETCH_HISTORY' });
+    put({ type: 'FETCH_HISTORY', payload: action.payload.room_id});
 }
 
 // When a user connects to a room, get that room's history

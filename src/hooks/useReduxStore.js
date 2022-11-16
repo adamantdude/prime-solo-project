@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 
 //These aren't used in the project, but are something you could use
@@ -9,12 +10,14 @@ const useReduxStore = () => {
   return useSelector((store) => store);
 };
 
-/*
-EXAMPLE FOR A SELECTOR THAT GETS SOMETHING SPECIFIC
+
+// EXAMPLE FOR A SELECTOR THAT GETS SOMETHING SPECIFIC
 
 const useUser = () => {
   return useSelector(store => store.user)
 }
-*/
 
-export default useReduxStore;
+export default function hook() {
+  useReduxStore(),
+  useUser()
+};
