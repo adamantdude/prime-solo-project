@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import hook from '../../hooks/useReduxStore';
 
 function RegisterForm() {
   const [
@@ -10,7 +9,8 @@ function RegisterForm() {
     [charLName, setLName],
   ] = [useState(''), useState(''), useState(''), useState('')];
   
-  const errors = useSelector((store) => store.errors);
+  const errors = useSelector(store => store.errors);
+
   const dispatch = useDispatch();
 
   const registerUser = (event) => {

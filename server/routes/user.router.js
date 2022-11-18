@@ -48,15 +48,6 @@ router.post('/register', async (req, res, next) => {
     console.log('NEW USER CREATED!');
 
     res.sendStatus(201);
-    // const queryText = `INSERT INTO "user" (username, password)
-    //   VALUES ($1, $2) RETURNING id`;
-    // pool
-    //   .query(queryText, [username, password])
-    //   .then(() => res.sendStatus(201))
-    //   .catch((err) => {
-    //     console.log('User registration failed: ', err);
-    //     res.sendStatus(500);
-    //   });
   } catch (err) {
     await client.query('ROLLBACK');
     console.log('ERROR POST /api/user', error);

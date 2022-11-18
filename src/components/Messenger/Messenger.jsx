@@ -4,12 +4,18 @@ import { io } from "socket.io-client"
 const socket = io.connect("http://localhost:3000");
 
 function Messenger() {
-    const [[message, setMessage],[messageList, setList]] = [useState(''), useState([])];
+    const [
+        [message, setMessage],
+        [messageList, setList]
+    ] = [useState(''), useState([])];
 
     useEffect(() => {
-        socket.on('send_message', msg => {
-            setList(messageList.concat(msg));
-        })
+        let isMounted = true;
+        if (isMounted) {
+            socket.on('send_message', msg => {
+                setList(messageList.concat(msg));
+            })
+        }
     }, [messageList])
 
     const sendMessage = (e) => {
