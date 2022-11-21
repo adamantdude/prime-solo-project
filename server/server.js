@@ -42,8 +42,8 @@ app.use(express.static('build'));
 const http = require('http'); // socket.io runs on http express server
 const port = 5000;
 const cors = require('cors'); // Cross-Origin Resource Sharing
-  // Allows users to send data back and forth
-  // by telling the http server what origins are permitted
+// Allows users to send data back and forth
+// by telling the http server what origins are permitted
 
 // A socket.io server that becomes persistent on start
 // Continues listening and handling data so there is real-time
@@ -54,7 +54,7 @@ app.use(cors()); // cors middleware
 
 // create the http based server
 // needed for socket.io
-const server = http.createServer(app); 
+const server = http.createServer(app);
 
 // create the socket.io server and latch it onto the http
 // server just created, with a CORS header
@@ -73,15 +73,32 @@ const io = new Server(server, {
 
 // When someone connects to the server
 io.on('connection', (socket) => {
-  console.log('A NEW USER CONNECTED', socket.id);
+  // connectedUsers++;
+  console.log('A NEW USER CONNECTED', socket.id, socket.handshake.headers.cookie);
   // When client-side 'emits' a 'chat message' ...
-  socket.on('send_message', (msg, character) => {
-    
+  socket.on('send_message', data => {
+    console.log(data);
+    data.msg = data.character.full_name + ' says, " ' + data.msg + ' " ';
     // ... send it to everyone connected, including the one who sent it
-    io.emit('send_message', msg, character);
-    console.log('NEW MESSAGE -- ', msg, ' FROM ', character);
+    io.to(data.room).emit('send_message', data.msg);
+    console.log('NEW MESSAGE -- ', data.msg, ' FROM ', data.character);
   });
+
+  socket.on('join_room', (room, fn) => {
+    socket.join(room);
+    fn({
+      message: ' You went towards the ' + room
+    })
+  })
+
+  socket.on('user_connect', (fn) => {
+    fn({
+      cookie: socket.handshake.headers.cookie,
+    })
+  })
+
   socket.on('disconnect', () => {
+    // connectedUsers--;
     // when a client disconnects, tell the server
     console.log('user Disconnected');
   })

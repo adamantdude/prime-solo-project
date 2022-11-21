@@ -1,5 +1,5 @@
 import './Profile.css';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 function Profile() {
@@ -23,6 +23,10 @@ function Profile() {
     const cancelChanges = () => {
         setMode(!editMode);
     }
+
+    useEffect(() => {
+        // dispatch({ type: 'FETCH_CHARACTER' });
+    }, [])
 
     return (
         <div id="profilePage">

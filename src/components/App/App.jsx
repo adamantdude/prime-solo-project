@@ -7,7 +7,6 @@ import {
 } from 'react-router-dom';
 
 import { useDispatch, useSelector } from 'react-redux';
-import hook from '../../hooks/useReduxStore';
 
 import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
@@ -16,7 +15,6 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
@@ -24,6 +22,13 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import './App.css';
 import Messenger from '../Messenger/Messenger';
 import Profile from '../Profile/Profile';
+
+
+import { io } from "socket.io-client";
+const socket = io("http://localhost:3000", {
+  withCredentials: true,
+  autoConnect: 10000
+});
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +38,10 @@ function App() {
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
     dispatch({ type: 'FETCH_CHARACTER' });
+    socket.emit('user_connect', (res) => {
+      console.log(res.cookie);
+    })
+    
   }, [dispatch]);
 
   return (
@@ -118,7 +127,7 @@ function App() {
             exact
             path="/messenger"
           >
-            <Messenger />
+            <Messenger socket={socket} />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
