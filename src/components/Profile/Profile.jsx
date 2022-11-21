@@ -1,5 +1,5 @@
 import './Profile.css';
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 function Profile() {
@@ -10,19 +10,13 @@ function Profile() {
     const [editMode, setMode] = useState(false);
     const [editText, setText] = useState('');
 
-    // console.log(character);
-
-    useEffect(() => {
-        dispatch({ type: 'FETCH_CHARACTER' })
-    }, [])
-
     const changeEditMode = () => {
         setText(character.history);
         setMode(!editMode);
     }
 
     const submitChanges = () => {
-        dispatch({ type: 'UPDATE_HISTORY', payload: { history: editText, char_id: character.id }})
+        dispatch({ type: 'UPDATE_HISTORY', payload: { history: editText, char_id: character.id } })
         setMode(!editMode);
     }
 
@@ -53,17 +47,19 @@ function Profile() {
             <div id="historyBox">
                 {!editMode &&
                     <>
-                        <p>History:</p>
+                        <p> History:
+                            <button onClick={changeEditMode}>EDIT</button>
+                        </p>
                         <textarea disabled value={character.history} wrap="hard"></textarea>
-                        <button onClick={changeEditMode}>EDIT</button>
                     </>
                 }
                 {editMode &&
                     <>
-                        <p>History:</p>
+                        <p>History:
+                            <button onClick={submitChanges}>Submit</button>
+                            <button onClick={cancelChanges}>Cancel</button>
+                        </p>
                         <textarea onChange={(e) => setText(e.target.value)} value={editText} wrap="hard"></textarea>
-                        <button onClick={submitChanges}>Submit</button>
-                        <button onClick={cancelChanges}>Cancel</button>
                     </>
                 }
             </div>

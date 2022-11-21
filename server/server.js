@@ -75,10 +75,11 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log('A NEW USER CONNECTED', socket.id);
   // When client-side 'emits' a 'chat message' ...
-  socket.on('send_message', msg => {
+  socket.on('send_message', (msg, character) => {
+    
     // ... send it to everyone connected, including the one who sent it
-    io.emit('send_message', msg);
-    console.log('NEW MESSAGE -- ', msg);
+    io.emit('send_message', msg, character);
+    console.log('NEW MESSAGE -- ', msg, ' FROM ', character);
   });
   socket.on('disconnect', () => {
     // when a client disconnects, tell the server

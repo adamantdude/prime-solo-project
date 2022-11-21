@@ -1,5 +1,7 @@
+import './Messenger.css';
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client"
+import { useSelector } from 'react-redux';
 
 const socket = io.connect("http://localhost:3000");
 
@@ -8,6 +10,8 @@ function Messenger() {
         [message, setMessage],
         [messageList, setList]
     ] = [useState(''), useState([])];
+
+    const character = useSelector(store => store.profile);
 
     useEffect(() => { // effect function
         let isMounted = true; 
@@ -31,7 +35,7 @@ function Messenger() {
     const sendMessage = (e) => {
         e.preventDefault();
 
-        socket.emit('send_message', message);
+        socket.emit('send_message', message, character);
         setMessage('');
     }
 
