@@ -30,6 +30,11 @@ function Messenger({ socket }) {
             socket.on('send_message', msg => {
                 setList(messageList.concat(msg));
             })
+
+            // default room emit
+            socket.emit('join_room', room, res => { 
+                setList(messageList.concat(res.message));
+            })
         }
 
         // when the component is done displaying...
