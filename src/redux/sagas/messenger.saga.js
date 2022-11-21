@@ -12,14 +12,14 @@ function* messengerSaga() {
 function* addHistory(action) {
     yield axios.post('/api/messenger', action.payload);
 
-    put({ type: 'FETCH_HISTORY', payload: action.payload.room_id});
+    yield put({ type: 'FETCH_HISTORY', payload: action.payload.room_id});
 }
 
 // When a user connects to a room, get that room's history
 function* fetchHistory(action) {
     const response = yield axios.get(`/api/messenger/${action.payload}`);
 
-    put({ type: 'SET_HISTORY', payload: response.data });
+    yield put({ type: 'SET_HISTORY', payload: response.data });
 }
 
 // Get rooms upon app load to be displayed
@@ -27,7 +27,7 @@ function* fetchHistory(action) {
 function* fetchRooms() {
     const response = yield axios.get('/api/rooms');
 
-    put({ type: 'SET_ROOMS', payload: response.data });
+    yield put({ type: 'SET_ROOMS', payload: response.data });
 }
 
 // Everytime a user connects, get their information via ID
@@ -35,7 +35,7 @@ function* fetchRooms() {
 function* fetchUser(action) {
     const response = yield axios.get(`/api/userbase/${action.payload}`);
 
-    put({ type: 'SET_USERNAMES', payload: response.data });
+    yield put({ type: 'SET_USERNAMES', payload: response.data });
 }
 
 export default messengerSaga;

@@ -23,6 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 
 import './App.css';
 import Messenger from '../Messenger/Messenger';
+import Profile from '../Profile/Profile';
 
 function App() {
   const dispatch = useDispatch();
@@ -67,7 +68,7 @@ function App() {
             exact
             path="/info"
           >
-            <InfoPage />
+            <Profile />
           </ProtectedRoute>
 
           <Route

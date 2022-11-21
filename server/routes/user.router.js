@@ -34,9 +34,9 @@ router.post('/register', async (req, res, next) => {
       INSERT INTO "journal" VALUES (DEFAULT) RETURNING "id";
     `)
     const characterCreationResult = await client.query(`
-      INSERT INTO "character" ("first_name", "last_name", "stats_id")
-      VALUES ($1, $2, $3) RETURNING "id";
-    `, [charFName, charLName, charStatsCreationResult.rows[0].id])
+      INSERT INTO "character" ("full_name", "stats_id")
+      VALUES ($1, $2) RETURNING "id";
+    `, [charFName + ' ' + charLName, charStatsCreationResult.rows[0].id])
 
     await client.query(`
       INSERT INTO "user" ("username", "password", "character_id", "journal_id")
@@ -50,7 +50,7 @@ router.post('/register', async (req, res, next) => {
     res.sendStatus(201);
   } catch (err) {
     await client.query('ROLLBACK');
-    console.log('ERROR POST /api/user', error);
+    console.log('ERROR POST /api/user', err);
     res.sendStatus(500);
   } finally {
     client.release();

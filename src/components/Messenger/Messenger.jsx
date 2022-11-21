@@ -9,12 +9,22 @@ function Messenger() {
         [messageList, setList]
     ] = [useState(''), useState([])];
 
-    useEffect(() => {
-        let isMounted = true;
+    useEffect(() => { // effect function
+        let isMounted = true; 
+        
+        // if the component is currently displaying...
         if (isMounted) {
+            // setup socket.io listeners
             socket.on('send_message', msg => {
                 setList(messageList.concat(msg));
             })
+        }
+
+        // when the component is done displaying...
+        return () => { // cleanup function
+            // remove listeners to avoid memory leak
+            isMounted = false;
+            socket.removeAllListeners();
         }
     }, [messageList])
 
