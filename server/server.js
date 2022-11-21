@@ -74,21 +74,25 @@ const io = new Server(server, {
 // When someone connects to the server
 io.on('connection', (socket) => {
   // connectedUsers++;
-  console.log('A NEW USER CONNECTED', socket.id, socket.handshake.headers.cookie);
+  // console.log(socket);
+  console.log('A NEW USER CONNECTED', socket.id, socket.username);
   // When client-side 'emits' a 'chat message' ...
   socket.on('send_message', data => {
     console.log(data);
     data.msg = data.character.full_name + ' says, " ' + data.msg + ' " ';
     // ... send it to everyone connected, including the one who sent it
     io.to(data.room).emit('send_message', data.msg);
-    console.log('NEW MESSAGE -- ', data.msg, ' FROM ', data.character);
+    console.log('NEW MESSAGE -- ', data.msg, 'TO', data.room);
   });
 
-  socket.on('join_room', (room, fn) => {
-    socket.join(room);
+  socket.on('join_room', (newRoom, room, fn) => {
+    socket.join(newRoom);
+    socket.leave(room);
     fn({
-      message: ' You went towards the ' + room
+      message: ' You went towards the ' + newRoom,
+      userList: socket.adapter.rooms.get(newRoom),
     })
+    console.log(socket.adapter.rooms);
   })
 
   socket.on('user_connect', (fn) => {

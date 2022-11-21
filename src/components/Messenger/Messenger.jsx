@@ -9,7 +9,7 @@ function Messenger({ socket }) {
         [message, setMessage],
         [messageList, setList],
         [room, setRoom]
-    ] = [useState(''), useState([]), useState('Capitol')];
+    ] = [useState(''), useState([]), useState('')];
 
     const character = useSelector(store => store.profile);
 
@@ -29,11 +29,6 @@ function Messenger({ socket }) {
             // setup socket.io listeners
             socket.on('send_message', msg => {
                 setList(messageList.concat(msg));
-            })
-
-            // default room emit
-            socket.emit('join_room', room, res => { 
-                setList(messageList.concat(res.message));
             })
         }
 
@@ -58,10 +53,12 @@ function Messenger({ socket }) {
         setMessage('');
     }
 
-    const joinRoom = (room) => {
-        setRoom(room);
-        socket.emit('join_room', room, res => {
+    const joinRoom = (newRoom) => {
+        if(newRoom === room) return;
+        setRoom(newRoom);
+        socket.emit('join_room', newRoom, room, res => {
             setList(messageList.concat(res.message));
+            console.log(res.userList);
         });
     }
 

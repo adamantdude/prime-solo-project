@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   HashRouter as Router,
   Redirect,
@@ -32,16 +32,14 @@ const socket = io("http://localhost:3000", {
 
 function App() {
   const dispatch = useDispatch();
-
   const user = useSelector(store => store.user);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-    dispatch({ type: 'FETCH_CHARACTER' });
+
     socket.emit('user_connect', (res) => {
       console.log(res.cookie);
     })
-    
   }, [dispatch]);
 
   return (
