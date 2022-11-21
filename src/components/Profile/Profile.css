@@ -1,0 +1,11 @@
+#historyBox textarea{
+    width: 50%;
+    height: 600px;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#profilePage {
+    display:flex;
+    flex-direction: column;
+}

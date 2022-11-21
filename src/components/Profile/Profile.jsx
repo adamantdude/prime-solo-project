@@ -1,3 +1,4 @@
+import './Profile.css';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -13,10 +14,10 @@ function Profile() {
 
     useEffect(() => {
         dispatch({ type: 'FETCH_CHARACTER' })
-        setText(character.history);
     }, [])
 
     const changeEditMode = () => {
+        setText(character.history);
         setMode(!editMode);
     }
 
@@ -31,6 +32,14 @@ function Profile() {
 
     return (
         <div id="profilePage">
+
+            <div id="characterBox">
+                {/* <img src="avatar.png" /> */}
+                <p>Character Name: {character.full_name}</p>
+                <p>Experience: {character.exp}</p>
+                <p>Level: {character.level}</p>
+            </div>
+
             <div id="statsBox">
                 <p>
                     Strength: 0
@@ -44,25 +53,19 @@ function Profile() {
             <div id="historyBox">
                 {!editMode &&
                     <>
-                        <p>History: {character.history}</p>
+                        <p>History:</p>
+                        <textarea disabled value={character.history} wrap="hard"></textarea>
                         <button onClick={changeEditMode}>EDIT</button>
                     </>
                 }
                 {editMode &&
                     <>
-                        <p>History: {character.history}</p>
-                        <input type="text" onChange={(e) => setText(e.target.value)} value={editText} />
+                        <p>History:</p>
+                        <textarea onChange={(e) => setText(e.target.value)} value={editText} wrap="hard"></textarea>
                         <button onClick={submitChanges}>Submit</button>
                         <button onClick={cancelChanges}>Cancel</button>
                     </>
                 }
-            </div>
-
-            <div id="characterBox">
-                {/* <img src="avatar.png" /> */}
-                <p>Character Name: {character.full_name}</p>
-                <p>Experience: {character.exp}</p>
-                <p>Level: {character.level}</p>
             </div>
 
             <div id="friendsList">
