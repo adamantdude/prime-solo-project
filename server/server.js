@@ -71,40 +71,52 @@ const io = new Server(server, {
 // .emit method is a handler
 // .emit([event name], (payload to send) => { ... do things })
 
+let users = [];
+
 // When someone connects to the server
 io.on('connection', (socket) => {
-  // connectedUsers++;
-  // console.log(socket);
+
   console.log('A NEW USER CONNECTED', socket.id, socket.username);
+
+  // ----------- socket is mutable
+  socket.on('uniqueIDSET', (data) => {
+    socket.user = { user_id: data.user_id, character_name: data.character_name }
+  })
+  // -----------
+
   // When client-side 'emits' a 'chat message' ...
-  socket.on('send_message', data => {
-    console.log(data);
-    data.msg = data.character.full_name + ' says, " ' + data.msg + ' " ';
-    // ... send it to everyone connected, including the one who sent it
-    io.to(data.room).emit('send_message', data.msg);
-    console.log('NEW MESSAGE -- ', data.msg, 'TO', data.room);
+  socket.on('send_message', (data) => {
+    console.log('message sent:', data.message);
+
+    data.message = data.char + ' says: ' + data.message;
+
+    io.to(data.room).emit('send_message', data.message);
   });
 
-  socket.on('join_room', (newRoom, room, fn) => {
-    socket.join(newRoom);
-    socket.leave(room);
-    fn({
-      message: ' You went towards the ' + newRoom,
-      userList: socket.adapter.rooms.get(newRoom),
-    })
-    console.log(socket.adapter.rooms);
+  socket.on('join_room', (room, oldRoom) => {
+    socket.leaveAll();
+    socket.join(room);
+
+    users = users.filter(x => x.user_id != socket.user.user_id);
+
+    users.push({ ...socket.user, room: room });
+
+    console.log(users);
+
+    io.to(room).to(oldRoom).emit('user_list', users);
   })
 
-  socket.on('user_connect', (fn) => {
-    fn({
-      cookie: socket.handshake.headers.cookie,
-    })
+  socket.on('send_info', (id) => {
+    console.log(id);
   })
 
   socket.on('disconnect', () => {
-    // connectedUsers--;
     // when a client disconnects, tell the server
     console.log('user Disconnected');
+
+    users = users.filter(x => x.user_id != socket.user.user_id);
+
+    socket.broadcast.emit('user_list', users);
   })
 });
 
@@ -112,3 +124,9 @@ io.on('connection', (socket) => {
 server.listen(port, () => {
   console.log(`Socket.IO server running at http://localhost:${port}/`);
 });
+
+// const clients = io.sockets.adapter.rooms.get(socket.id);
+// console.log(clients);
+// let clientSocket = Array.from(clients);
+// console.log(clientSocket);
+// console.log(socket.user);

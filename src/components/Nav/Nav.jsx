@@ -27,6 +27,10 @@ function Nav() {
             <Link className="navLink" to="/user">
               Home
             </Link>
+
+            <Link className="navLink" to="/worldSelect">
+              World View
+            </Link>
             
             <Link className="navLink" to="/messenger">
               Messenger

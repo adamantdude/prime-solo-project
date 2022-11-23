@@ -2,40 +2,25 @@ import axios from "axios";
 import { put, takeLatest } from "redux-saga/effects";
 
 function* messengerSaga() {
-    yield takeLatest('ADD_TO_HISTORY', addHistory);
-    yield takeLatest('FETCH_HISTORY', fetchHistory);
     yield takeLatest('FETCH_ROOMS', fetchRooms);
-    yield takeLatest('FETCH_USERNAME', fetchUser);
-}
-
-// When a user sends a message, put it into the database
-function* addHistory(action) {
-    yield axios.post('/api/messenger', action.payload);
-
-    yield put({ type: 'FETCH_HISTORY', payload: action.payload.room_id});
-}
-
-// When a user connects to a room, get that room's history
-function* fetchHistory(action) {
-    const response = yield axios.get(`/api/messenger/${action.payload}`);
-
-    yield put({ type: 'SET_HISTORY', payload: response.data });
+    yield takeLatest('JOIN_ROOM', joinRoom);
+    yield takeLatest('FETCH_LIST_OF_NAMES', fetchListOfNames);
 }
 
 // Get rooms upon app load to be displayed
 // Rooms are hard-coded
 function* fetchRooms() {
-    const response = yield axios.get('/api/rooms');
+    const response = yield axios.get('/api/messenger');
 
     yield put({ type: 'SET_ROOMS', payload: response.data });
 }
 
-// Everytime a user connects, get their information via ID
-// to be displayed in the room
-function* fetchUser(action) {
-    const response = yield axios.get(`/api/userbase/${action.payload}`);
+function* joinRoom(action) {
+    yield put({ type: 'SET_CHAT_ROOM', payload: action.payload })
+}
 
-    yield put({ type: 'SET_USERNAMES', payload: response.data });
+function* fetchListOfNames(action) {
+    yield put({ type: 'SET_LIST_OF_NAMES', payload: action.payload });
 }
 
 export default messengerSaga;

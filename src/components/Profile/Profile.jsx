@@ -20,10 +20,6 @@ function Profile() {
         setMode(!editMode);
     }
 
-    const cancelChanges = () => {
-        setMode(!editMode);
-    }
-
     return (
         <div id="profilePage">
 
@@ -57,7 +53,7 @@ function Profile() {
                     <>
                         <p>History:
                             <button onClick={submitChanges}>Submit</button>
-                            <button onClick={cancelChanges}>Cancel</button>
+                            <button onClick={() => setMode(!editMode)}>Cancel</button>
                         </p>
                         <textarea onChange={(e) => setText(e.target.value)} value={editText} wrap="hard"></textarea>
                     </>

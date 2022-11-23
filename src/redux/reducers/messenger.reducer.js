@@ -1,12 +1,5 @@
 import { combineReducers } from "redux";
 
-const usernames = (state = [], action) => {
-    switch(action.type) {
-        case 'SET_USERNAMES': return [...state, action.payload];
-        default: return state;
-    }
-}
-
 const rooms = (state = [], action) => {
     switch(action.type) {
         case 'SET_ROOMS': return action.payload;
@@ -14,15 +7,22 @@ const rooms = (state = [], action) => {
     }
 }
 
-const history = (state = [], action) => {
+const currentRoom = (state = '', action) => {
     switch(action.type) {
-        case 'SET_HISTORY': return action.payload;
+        case 'SET_CHAT_ROOM': return action.payload;
+        default: return state;
+    }
+}
+
+const usersInRoom = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_LIST_OF_NAMES': return action.payload;
         default: return state;
     }
 }
 
 export default combineReducers({
-    usernames,
     rooms,
-    history,
+    currentRoom,
+    usersInRoom,
 })

@@ -23,8 +23,8 @@ import './App.css';
 import Messenger from '../Messenger/Messenger';
 import Profile from '../Profile/Profile';
 
-
 import { io } from "socket.io-client";
+import WorldSelect from '../WorldSelect/WorldSelect';
 const socket = io("http://localhost:3000", {
   withCredentials: true,
   autoConnect: 10000
@@ -33,13 +33,10 @@ const socket = io("http://localhost:3000", {
 function App() {
   const dispatch = useDispatch();
   const user = useSelector(store => store.user);
+  const room = useSelector(store => store.messenger.currentRoom);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_USER' });
-
-    socket.emit('user_connect', (res) => {
-      console.log(res.cookie);
-    })
   }, [dispatch]);
 
   return (
@@ -125,7 +122,18 @@ function App() {
             exact
             path="/messenger"
           >
-            <Messenger socket={socket} />
+            {room === '' ?
+              <Redirect to="/worldSelect" /> 
+              :
+              <Messenger socket={socket} />
+            }
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/worldSelect"
+          >
+            <WorldSelect socket={socket} user={user} />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
