@@ -80,7 +80,11 @@ io.on('connection', (socket) => {
 
   // ----------- socket is mutable
   socket.on('uniqueIDSET', (data) => {
-    socket.user = { user_id: data.user_id, character_name: data.character_name }
+    socket.user = { 
+      user_id: data.user_id, 
+      character_name: data.character_name, 
+      character_id: data.character_id 
+    }
   })
   // -----------
 

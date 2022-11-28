@@ -7,14 +7,18 @@ function WorldSelect({ socket, user }) {
     const dispatch = useDispatch();
     const history = useHistory();
     const messenger = useSelector(store => store.messenger);
-    const character = useSelector(store => store.profile);
+    const character = useSelector(store => store.profile.character);
 
     useEffect(() => {
         dispatch({ type: 'FETCH_ROOMS' })
     }, [])
 
     const setLocation = (room) => {
-        socket.emit('uniqueIDSET', { user_id: user.id, character_name: character.full_name });
+        socket.emit('uniqueIDSET', { 
+            user_id: user.id, 
+            character_name: character.full_name,
+            character_id: character.id 
+        });
         socket.emit('join_room', room, messenger.currentRoom);
         dispatch({ type: 'JOIN_ROOM' , payload: room });
         history.push('/messenger');

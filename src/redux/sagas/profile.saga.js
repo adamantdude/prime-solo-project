@@ -3,6 +3,7 @@ import { put, takeLatest } from "redux-saga/effects";
 
 function* profileSaga() {
     yield takeLatest('FETCH_CHARACTER', fetchCharacter);
+    yield takeLatest('FETCH_PROFILE', fetchProfile);
     yield takeLatest('UPDATE_HISTORY', updateHistory);
 }
 
@@ -19,9 +20,22 @@ function* fetchCharacter() {
 
 function* updateHistory(action) {
     try {
-        yield axios.post('/api/userbase', { history: action.payload.history, char_id: action.payload.char_id });
+        yield axios.post('/api/userbase', { 
+            history: action.payload.history, 
+            char_id: action.payload.char_id 
+        });
 
         yield put({ type:'FETCH_CHARACTER' });
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function* fetchProfile(action) {
+    try {
+        let res = yield axios.get(`/api/userbase/${action.payload}`)
+
+        yield put({ type: 'SET_PROFILE', payload: res.data });
     } catch (err) {
         console.log(err);
     }

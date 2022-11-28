@@ -1,6 +1,7 @@
 import './Messenger.css';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 function Messenger({ socket }) {
     const [
@@ -9,8 +10,9 @@ function Messenger({ socket }) {
     ] = [useState(''), useState([])];
 
     const dispatch = useDispatch();
+    const history = useHistory();
 
-    const character = useSelector(store => store.profile);
+    const character = useSelector(store => store.profile.character);
     const messenger = useSelector(store => store.messenger);
 
     useEffect(() => { // effect function
@@ -52,6 +54,11 @@ function Messenger({ socket }) {
         setMessage('');
     }
 
+    const viewOtherProfile = (id) => {
+        console.log('VIEW OTHER USER PROFILE', id);
+        history.push(`/profile/${id}`);
+    }
+
     return (
         <div id="messengerPage">
             <h1 id="location">{messenger.currentRoom}</h1>
@@ -65,7 +72,7 @@ function Messenger({ socket }) {
                 <ul id="userList">
                     {messenger.usersInRoom.length > 0 &&
                         messenger.usersInRoom.filter(x => x.room === messenger.currentRoom).map(y =>
-                            <li key={y.user_id}>{y.character_name}</li>
+                            <li key={y.user_id} onClick={() => viewOtherProfile(y.character_id)}>{y.character_name}</li>
                         )}
                 </ul>
             </div>

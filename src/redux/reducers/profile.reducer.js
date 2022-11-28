@@ -14,6 +14,16 @@ const character = (state = {
     }
 }
 
+const otherProfile = (state = {}, action) => {
+    switch(action.type) {
+        case 'SET_PROFILE':
+            return {...state, ...action.payload}
+        default:
+            return state;
+    }
+}
 
-
-export default character
+export default combineReducers({
+    character,
+    otherProfile,
+})

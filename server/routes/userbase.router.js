@@ -35,4 +35,14 @@ router.post('/', (req, res) => {
   }
 });
 
+router.get('/:id', (req, res) => {
+  if (req.isAuthenticated()) {
+    pool.query(`
+      SELECT * FROM "character" WHERE "id" = $1;
+    `, [req.params.id])
+      .then(result => res.send(result.rows[0]))
+      .catch(err => res.sendStatus(500));
+  }
+})
+
 module.exports = router;

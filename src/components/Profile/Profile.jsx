@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 function Profile() {
 
     const dispatch = useDispatch();
-    const character = useSelector(store => store.profile)
+    const character = useSelector(store => store.profile.character)
 
     const [editMode, setMode] = useState(false);
     const [editText, setText] = useState('');

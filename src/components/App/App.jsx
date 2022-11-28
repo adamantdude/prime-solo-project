@@ -25,6 +25,7 @@ import Profile from '../Profile/Profile';
 
 import { io } from "socket.io-client";
 import WorldSelect from '../WorldSelect/WorldSelect';
+import OtherProfile from '../OtherProfile/OtherProfile';
 const socket = io("http://localhost:3000", {
   withCredentials: true,
   autoConnect: 10000
@@ -134,6 +135,13 @@ function App() {
             path="/worldSelect"
           >
             <WorldSelect socket={socket} user={user} />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            exact
+            path="/profile/:id"
+          >
+            <OtherProfile />
           </ProtectedRoute>
 
           {/* If none of the other routes matched, we will show a 404. */}
