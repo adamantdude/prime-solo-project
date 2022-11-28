@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import './WorldSelect.css';
 
 function WorldSelect({ socket, user }) {
 
@@ -32,7 +33,7 @@ function WorldSelect({ socket, user }) {
                 <h1>Please select a location: </h1>
             }
             {messenger.rooms && messenger.rooms.map(room =>
-                <div key={room.id} onClick={() => setLocation(room.name)}>
+                <div className="locationName" key={room.id} onClick={() => setLocation(room.name)}>
                     <h2>{room.name}</h2>
                     {/* location information */}
                 </div>

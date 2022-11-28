@@ -9,7 +9,12 @@ function AboutPage() {
   return (
     <div className="container">
       <div>
-        <p>This about page is for anyone to read!</p>
+        <p>
+          Fableguild is a fantasy-based messaging app for those who are 
+          wanting to tap into their roleplaying skill.
+
+          Created by Adam Lee
+        </p>
       </div>
     </div>
   );
