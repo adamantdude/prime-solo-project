@@ -7,6 +7,8 @@
   margin: 0 0 30px;
   background-color: #004546;
   overflow: hidden;
+
+  font-family: Luminari, fantasy;
 }
 
 .nav a {

@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 function Profile() {
 
     const dispatch = useDispatch();
-    const character = useSelector(store => store.profile.character)
+    const character = useSelector(store => store.profile.character);
 
     const [editMode, setMode] = useState(false);
     const [editText, setText] = useState('');
@@ -25,19 +25,20 @@ function Profile() {
 
             <div id="characterBox">
                 {/* <img src="avatar.png" /> */}
-                <p>Character Name: {character.full_name}</p>
+                <h1>{character.full_name}</h1>
+                <h3>Level: {character.level}</h3>
                 <p>Experience: {character.exp}</p>
-                <p>Level: {character.level}</p>
             </div>
 
             <div id="statsBox">
-                <p>
-                    Strength: 0
-                    Dexterity: 0
-                    Intellect: 0
-                    Wisdom: 0
-                    Faith: 0
-                </p>
+                <h3> Statistics </h3>
+                <ul>
+                    <li>Strength : 0</li>
+                    <li>Dexterity : 0</li>
+                    <li>Intellect : 0</li>
+                    <li>Wisdom : 0</li>
+                    <li>Faith : 0</li>
+                </ul>
             </div>
 
             <div id="historyBox">

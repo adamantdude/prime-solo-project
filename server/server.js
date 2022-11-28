@@ -109,6 +109,14 @@ io.on('connection', (socket) => {
     io.to(room).to(oldRoom).emit('user_list', users);
   })
 
+  socket.on('logout', () => {
+    socket.leaveAll();
+
+    users = users.filter(x => x.user_id != socket.user.user_id);
+
+    socket.broadcast.emit('user_list', users);
+  })
+
   socket.on('send_info', (id) => {
     console.log(id);
   })
@@ -116,10 +124,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     // when a client disconnects, tell the server
     console.log('User Disconnected');
-
-    users = users.filter(x => x.user_id != socket.user.user_id);
-
-    socket.broadcast.emit('user_list', users);
   })
 });
 

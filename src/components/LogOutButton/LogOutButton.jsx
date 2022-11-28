@@ -6,7 +6,7 @@ function LogOutButton({className, socket}) {
 
   const logout = () => {
     dispatch({ type: 'LOGOUT' });
-    socket.emit('disconnect');
+    socket.emit('logout');
   }
 
   return (

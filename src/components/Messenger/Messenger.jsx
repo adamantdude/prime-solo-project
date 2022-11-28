@@ -63,7 +63,7 @@ function Messenger({ socket }) {
         <div id="messengerPage">
             <h1 id="location">{messenger.currentRoom}</h1>
             <div id="miniProfile">
-                <p>{character.full_name}</p>
+                <h3>{character.full_name}</h3>
                 <p>Level : {character.level}</p>
                 <p>EXP : {character.exp}</p>
             </div>

@@ -19,6 +19,7 @@ function AboutPage() {
           <br></br>
           Technologies used:
           <ul>
+            <li>JavaScript</li>
             <li>React-Redux-Sagas</li>
             <li>Node.js</li>
             <li>Socket.io</li>
