@@ -101,11 +101,9 @@ io.on('connection', (socket) => {
     socket.leaveAll();
     socket.join(room);
 
-    if (users.length > 0) {
-      users = users.filter(x => x.user_id != socket.user.user_id);
+    users = users.filter(x => x.user_id != socket.user.user_id);
 
-      users.push({ ...socket.user, room: room });
-    }
+    users.push({ ...socket.user, room: room });
 
     console.log(users);
     io.to(room).to(oldRoom).emit('user_list', users);
@@ -119,8 +117,7 @@ io.on('connection', (socket) => {
     // when a client disconnects, tell the server
     console.log('User Disconnected');
 
-    if (users.length > 0)
-      users = users.filter(x => x.user_id != socket.user.user_id);
+    users = users.filter(x => x.user_id != socket.user.user_id);
 
     socket.broadcast.emit('user_list', users);
   })

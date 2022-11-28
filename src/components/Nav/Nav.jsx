@@ -4,7 +4,7 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
 import { useSelector } from 'react-redux';
 
-function Nav() {
+function Nav({ socket }) {
   const user = useSelector((store) => store.user);
 
   return (
@@ -40,7 +40,7 @@ function Nav() {
               Profile
             </Link>
 
-            <LogOutButton className="navLink" />
+            <LogOutButton className="navLink" socket={socket}/>
           </>
         )}
 
