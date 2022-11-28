@@ -2,7 +2,7 @@ html,
 body,
 #react-root {
   height: 100%;
-  background-color: antiquewhite;
+  background-image: url('../../images/guild.jpeg');
 }
 
 body {
