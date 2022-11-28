@@ -80,10 +80,10 @@ io.on('connection', (socket) => {
 
   // ----------- socket is mutable
   socket.on('uniqueIDSET', (data) => {
-    socket.user = { 
-      user_id: data.user_id, 
-      character_name: data.character_name, 
-      character_id: data.character_id 
+    socket.user = {
+      user_id: data.user_id,
+      character_name: data.character_name,
+      character_id: data.character_id
     }
   })
   // -----------
@@ -101,12 +101,13 @@ io.on('connection', (socket) => {
     socket.leaveAll();
     socket.join(room);
 
-    users = users.filter(x => x.user_id != socket.user.user_id);
+    if (users.length > 0) {
+      users = users.filter(x => x.user_id != socket.user.user_id);
 
-    users.push({ ...socket.user, room: room });
+      users.push({ ...socket.user, room: room });
+    }
 
     console.log(users);
-
     io.to(room).to(oldRoom).emit('user_list', users);
   })
 
@@ -116,9 +117,10 @@ io.on('connection', (socket) => {
 
   socket.on('disconnect', () => {
     // when a client disconnects, tell the server
-    console.log('user Disconnected');
+    console.log('User Disconnected');
 
-    users = users.filter(x => x.user_id != socket.user.user_id);
+    if (users.length > 0)
+      users = users.filter(x => x.user_id != socket.user.user_id);
 
     socket.broadcast.emit('user_list', users);
   })
