@@ -22,7 +22,8 @@ function AboutPage() {
       </p>
       <p>
         I hope to continue working on this project to make it look better with
-        a friends list 
+        a friends list function and more game aspects that include battles, loot,
+        and quests!
       </p>
       <label htmlFor='techList'>Technologies used:</label>
       <ul id="techList">
@@ -33,6 +34,8 @@ function AboutPage() {
         <li>Node.js</li>
         <li>Express</li>
         <li>PostgreSQL</li>
+        <li>Figma</li>
+        <li>dbDesigner</li>
       </ul>
       <p>
         Thank you!
