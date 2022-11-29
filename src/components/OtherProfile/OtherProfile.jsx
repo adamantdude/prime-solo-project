@@ -26,13 +26,10 @@ function OtherProfile() {
             </div>
 
             <div id="statsBox">
-                <h3> Statistics </h3>
+                <h3> Info </h3>
                 <ul>
-                    <li>Strength : 0</li>
-                    <li>Dexterity : 0</li>
-                    <li>Intellect : 0</li>
-                    <li>Wisdom : 0</li>
-                    <li>Faith : 0</li>
+                    <li>email: theGaudyNoble@email.com</li>
+                    <li>discord: iLikeGold#9999</li>
                 </ul>
             </div>
 

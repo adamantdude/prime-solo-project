@@ -20,6 +20,10 @@ function AboutPage() {
         shoes to cultivate their acting abilities as well as find their
         aptitude for other games such as Dungeons and Dragons and the like.
       </p>
+      <p>
+        I hope to continue working on this project to make it look better with
+        a friends list 
+      </p>
       <label htmlFor='techList'>Technologies used:</label>
       <ul id="techList">
         <li>HTML/CSS</li>
