@@ -1,4 +1,5 @@
 import React from 'react';
+import './AboutPage.css';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -7,32 +8,26 @@ import React from 'react';
 
 function AboutPage() {
   return (
-    <div className="container">
-      <div>
-        <p>
-          Fableguild is a fantasy-based messaging app for those who are 
-          wanting to tap into their roleplaying skill. This app is created
-          for those who want a stepping stone into their inner characters'
-          shoes to cultivate their acting abilities as well as find their
-          aptitude for other games such as Dungeons and Dragons and the like.
-          <br></br>
-          <br></br>
-          Technologies used:
-          <ul>
-            <li>JavaScript</li>
-            <li>React-Redux-Sagas</li>
-            <li>Node.js</li>
-            <li>Socket.io</li>
-            <li>PostgreSQL</li>
-            <li>Express</li>
-          </ul>
-          - Adam Lee
-          <br></br>
-          <a href="https://github.com/adamantdude">Github</a>
-          <br></br>
-          <a href="https://www.linkedin.com/in/adamlee222412/">LinkedIn</a>
-        </p>
-      </div>
+    <div className="container" id="aboutPage">
+      <p>
+        Fableguild is a fantasy-based messaging app for those who are
+        wanting to tap into their roleplaying skill. This app is created
+        for those who want a stepping stone into their inner characters'
+        shoes to cultivate their acting abilities as well as find their
+        aptitude for other games such as Dungeons and Dragons and the like.
+      </p>
+      <label htmlFor='techList'>Technologies used:</label>
+      <ul id="techList">
+        <li>HTML/CSS</li>
+        <li>JavaScript</li>
+        <li>Socket.io</li>
+        <li>React-Redux-Sagas</li>
+        <li>Node.js</li>
+        <li>Express</li>
+        <li>PostgreSQL</li>
+      </ul>
+      <a href="https://github.com/adamantdude">Github</a>
+      <a href="https://www.linkedin.com/in/adamlee222412/">LinkedIn</a>
     </div>
   );
 }
