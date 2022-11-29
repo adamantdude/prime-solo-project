@@ -33,6 +33,7 @@ function AboutPage() {
         <li>React-Redux-Sagas</li>
         <li>Node.js</li>
         <li>Express</li>
+        <li>PassportJS</li>
         <li>PostgreSQL</li>
         <li>Figma</li>
         <li>dbDesigner</li>
