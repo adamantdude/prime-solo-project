@@ -47,7 +47,7 @@ function Profile() {
                         <p> History:
                             <button onClick={changeEditMode}>EDIT</button>
                         </p>
-                        <textarea disabled value={character.history ? character.history : ''} wrap="hard"></textarea>
+                        <textarea readOnly value={character.history ? character.history : ''} wrap="hard"></textarea>
                     </>
                 }
                 {editMode &&

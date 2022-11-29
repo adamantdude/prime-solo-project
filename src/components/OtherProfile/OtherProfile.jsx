@@ -37,7 +37,7 @@ function OtherProfile() {
             </div>
 
             <div id="historyBox">
-                <textarea disabled value={otherChar.history} wrap="hard"></textarea>
+                <textarea readOnly value={otherChar.history} wrap="hard"></textarea>
             </div>
 
             <div id="friendsList">

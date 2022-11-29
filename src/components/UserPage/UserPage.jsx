@@ -1,5 +1,5 @@
 import React from 'react';
-import LogOutButton from '../LogOutButton/LogOutButton';
+import './UserPage.css';
 import {useSelector} from 'react-redux';
 
 function UserPage() {
@@ -8,10 +8,19 @@ function UserPage() {
   const character = useSelector(store => store.profile.character);
 
   return (
-    <div className="container">
-      <h2>Welcome, {character.full_name}!</h2>
-      
-      <LogOutButton className="btn" />
+    <div className="container" id="userPage">
+      <h2>Welcome to the Guild, {character.full_name}!</h2>
+      <h3>What adventures await you today?</h3>
+      <div>LEVEL: {character.level}</div>
+      <div>EXP: {character.exp}</div>
+      <h2>--- Current News ---</h2>
+      <p>
+        There seems to be a lingering unrest at the Capitol city ...
+        <br></br>
+        The people whisper and the market has quieted to many's concerns.
+        <br></br>
+        What plot is to be uncovered at this location?
+      </p>
     </div>
   );
 }
