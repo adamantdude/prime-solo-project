@@ -20,13 +20,13 @@ function Messenger({ socket }) {
         // if the component is currently displaying...
         if (isMounted) {
 
-            if(messageList.length > 20) {
-                setList(messageList.slice(1));
-            }
+            // if(messageList.length > 20) {
+            //     setList(messageList.slice(1));
+            // }
 
             // setup socket.io listeners
-            socket.on('send_message', msg => {
-                setList(messageList.concat(msg));
+            socket.on('send_message', () => {
+                dispatch({ type: 'FETCH_CHAT_HISTORY', payload: messenger.currentRoom.id })
             })
 
             socket.on('user_list', (listOfUsers) => {
@@ -46,11 +46,16 @@ function Messenger({ socket }) {
     const sendMessage = (e) => {
         e.preventDefault();
 
-        socket.emit('send_message', {
-            message: message,
-            char: character.full_name,
-            room: messenger.currentRoom,
-        });
+        dispatch({ type: 'ADD_TO_HISTORY', 
+            payload: {
+                location_id: messenger.currentRoom.id, 
+                character_id: character.id,
+                message: message
+            }
+        })
+
+        socket.emit('send_message', {room: messenger.currentRoom.room});
+
         setMessage('');
     }
 
@@ -61,7 +66,7 @@ function Messenger({ socket }) {
 
     return (
         <div id="messengerPage">
-            <h1 id="location">{messenger.currentRoom}</h1>
+            <h1 id="location">{messenger.currentRoom.room}</h1>
             <div id="miniProfile">
                 <h3>{character.full_name}</h3>
                 <p>Level : {character.level}</p>
@@ -71,7 +76,7 @@ function Messenger({ socket }) {
                 <label htmlFor='userList'>Who Is Here:</label>
                 <ul id="userList">
                     {messenger.usersInRoom.length > 0 &&
-                        messenger.usersInRoom.filter(x => x.room === messenger.currentRoom).map(y =>
+                        messenger.usersInRoom.filter(x => x.room === messenger.currentRoom.room).map(y =>
                             <li key={y.user_id} onClick={() => viewOtherProfile(y.character_id)}>{y.character_name}</li>
                         )}
                 </ul>
@@ -79,7 +84,7 @@ function Messenger({ socket }) {
             <div id="messaging">
                 <label htmlFor='messageList'>Messages:</label>
                 <ul id="messageList">
-                    {messageList.length > 0 && messageList.map((sent, i) => <li key={i}>{sent}</li>)}
+                    {messenger.chatHistory.map(message => <li>{message.character_name} says, "{message.message}"</li>)}
                 </ul>
             </div>
             <div id="messageBox">

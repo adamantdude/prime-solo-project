@@ -50,14 +50,26 @@
     border: 1px black solid;
     grid-column: 2;
     grid-row: 1 / span 3;
+    display: flex;
 }
 
 #messageBox {
     border: 1px black solid;
     grid-column: 2;
-    grid-row: auto;
 }
 
 #messageBox input {
     width: 90%;
+}
+
+#messageList {
+    padding: 0;
+    width: 100%;
+    position: absolute;
+}
+
+#messageList li {
+    padding: 0;
+    word-wrap: break-word;
+    width: 60vw;
 }

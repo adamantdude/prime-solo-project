@@ -5,9 +5,8 @@ function RegisterForm() {
   const [
     [username, setUsername],
     [password, setPassword],
-    [charFName, setFName], 
-    [charLName, setLName],
-  ] = [useState(''), useState(''), useState(''), useState('')];
+    [charName, setName] 
+  ] = [useState(''), useState(''), useState('')];
   
   const errors = useSelector(store => store.errors);
 
@@ -21,8 +20,7 @@ function RegisterForm() {
       payload: {
         username: username,
         password: password,
-        charFName: charFName,
-        charLName: charLName
+        charName: charName,
       },
     });
   }; // end registerUser
@@ -61,25 +59,13 @@ function RegisterForm() {
       </div>
       <div>
         <label htmlFor="character_first_name">
-          Character's First Name:
+          Character's Name:
           <input
             type="text"
             name="char_fname"
-            value={charFName}
+            value={charName}
             required
-            onChange={(e) => setFName(e.target.value)}
-          />
-        </label>
-      </div>
-      <div>
-        <label htmlFor="character_last_name">
-          Character's Last Name:
-          <input
-            type="text"
-            name="char_lname"
-            value={charLName}
-            required
-            onChange={(e) => setLName(e.target.value)}
+            onChange={(e) => setName(e.target.value)}
           />
         </label>
       </div>

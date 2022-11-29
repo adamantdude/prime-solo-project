@@ -7,7 +7,7 @@ const rooms = (state = [], action) => {
     }
 }
 
-const currentRoom = (state = '', action) => {
+const currentRoom = (state = {}, action) => {
     switch(action.type) {
         case 'SET_CHAT_ROOM': return action.payload;
         default: return state;
@@ -21,8 +21,16 @@ const usersInRoom = (state = [], action) => {
     }
 }
 
+const chatHistory = (state = [], action) => {
+    switch(action.type) {
+        case 'SET_CHAT_HISTORY': return action.payload;
+        default: return state;
+    }
+}
+
 export default combineReducers({
     rooms,
     currentRoom,
     usersInRoom,
+    chatHistory,
 })

@@ -123,7 +123,7 @@ function App() {
             exact
             path="/messenger"
           >
-            {room === '' ?
+            {!room.room ?
               <Redirect to="/worldSelect" /> 
               :
               <Messenger socket={socket} />

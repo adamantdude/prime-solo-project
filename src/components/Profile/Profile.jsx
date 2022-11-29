@@ -47,7 +47,7 @@ function Profile() {
                         <p> History:
                             <button onClick={changeEditMode}>EDIT</button>
                         </p>
-                        <textarea disabled value={character.history} wrap="hard"></textarea>
+                        <textarea disabled value={character.history ? character.history : ''} wrap="hard"></textarea>
                     </>
                 }
                 {editMode &&
@@ -56,7 +56,7 @@ function Profile() {
                             <button onClick={submitChanges}>Submit</button>
                             <button onClick={() => setMode(!editMode)}>Cancel</button>
                         </p>
-                        <textarea onChange={(e) => setText(e.target.value)} value={editText} wrap="hard"></textarea>
+                        <textarea onChange={(e) => setText(e.target.value)} value={editText ? editText : ''} wrap="hard"></textarea>
                     </>
                 }
             </div>

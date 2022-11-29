@@ -11,6 +11,7 @@ const passport = require('./strategies/user.strategy');
 const userRouter = require('./routes/user.router');
 const messageRouter = require('./routes/message.router');
 const userbaseRouter = require('./routes/userbase.router');
+const historyRouter = require('./routes/history.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -27,6 +28,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/messenger', messageRouter);
 app.use('/api/userbase', userbaseRouter);
+app.use('/api/history', historyRouter);
 
 // Serve static files
 app.use(express.static('build'));
@@ -90,11 +92,8 @@ io.on('connection', (socket) => {
 
   // When client-side 'emits' a 'chat message' ...
   socket.on('send_message', (data) => {
-    console.log('message sent:', data.message);
 
-    data.message = data.char + ' says: ' + data.message;
-
-    io.to(data.room).emit('send_message', data.message);
+    io.to(data.room).emit('send_message');
   });
 
   socket.on('join_room', (room, oldRoom) => {

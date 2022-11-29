@@ -23,8 +23,7 @@ router.post('/register', async (req, res, next) => {
   try {
     const username = req.body.username;
     const password = encryptLib.encryptPassword(req.body.password);
-    const charFName = req.body.charFName;
-    const charLName = req.body.charLName;
+    const charName = req.body.charName;
 
     await client.query('BEGIN');
     const charStatsCreationResult = await client.query(`
@@ -36,7 +35,7 @@ router.post('/register', async (req, res, next) => {
     const characterCreationResult = await client.query(`
       INSERT INTO "character" ("full_name", "stats_id")
       VALUES ($1, $2) RETURNING "id";
-    `, [charFName + ' ' + charLName, charStatsCreationResult.rows[0].id])
+    `, [charName, charStatsCreationResult.rows[0].id])
 
     await client.query(`
       INSERT INTO "user" ("username", "password", "character_id", "journal_id")
