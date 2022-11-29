@@ -7,6 +7,9 @@ import './AboutPage.css';
 // or even care what the redux state is'
 
 function AboutPage() {
+
+  const ghQR = './github.png';
+
   return (
     <div className="container" id="aboutPage">
       <p>
@@ -26,6 +29,7 @@ function AboutPage() {
         <li>Express</li>
         <li>PostgreSQL</li>
       </ul>
+      <img src={ghQR} alt="githubQRcode" />
       <a href="https://github.com/adamantdude">Github</a>
       <a href="https://www.linkedin.com/in/adamlee222412/">LinkedIn</a>
     </div>

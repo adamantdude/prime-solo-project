@@ -84,7 +84,7 @@ function Messenger({ socket }) {
             <div id="messaging">
                 <label htmlFor='messageList'>Messages:</label>
                 <ul id="messageList">
-                    {messenger.chatHistory.map(message => <li>{message.character_name} says, "{message.message}"</li>)}
+                    {messenger.chatHistory.map(message => <li key={message.id}>{message.character_name} says, "{message.message}"</li>)}
                 </ul>
             </div>
             <div id="messageBox">

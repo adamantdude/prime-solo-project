@@ -4,7 +4,7 @@ const router = express.Router();
 
 router.get('/:id', (req, res) => {
   pool.query(`
-  SELECT "character".full_name as "character_name", "message" FROM "chat_history"
+  SELECT "chat_history".id as "id", "character".full_name as "character_name", "message" FROM "chat_history"
   JOIN "character" ON "chat_history".user_id = "character".id
   WHERE "location_id" = $1
   ORDER BY "chat_history".id

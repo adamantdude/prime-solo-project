@@ -65,11 +65,10 @@
 #messageList {
     padding: 0;
     width: 100%;
-    position: absolute;
+    position: relative;
 }
 
 #messageList li {
-    padding: 0;
     word-wrap: break-word;
-    width: 60vw;
+    width: 55vw;
 }
