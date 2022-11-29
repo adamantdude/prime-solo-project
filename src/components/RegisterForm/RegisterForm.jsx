@@ -25,9 +25,15 @@ function RegisterForm() {
     });
   }; // end registerUser
 
+  const autofill = () => {
+    setUsername('TheGoblinSlayer');
+    setPassword('GoblinSlayer');
+    setName('Marn Orcbolg');
+  }
+
   return (
     <form className="formPanel" onSubmit={registerUser}>
-      <h2>Register User</h2>
+      <h2 onClick={autofill}>Register User</h2>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}

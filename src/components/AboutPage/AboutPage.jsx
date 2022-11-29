@@ -1,5 +1,7 @@
 import React from 'react';
 import './AboutPage.css';
+import githubQR from './githubQR.png';
+import linkedInQR from './linkedInQR.png';
 
 // This is one of our simplest components
 // It doesn't have local state,
@@ -8,7 +10,6 @@ import './AboutPage.css';
 
 function AboutPage() {
 
-  const ghQR = './github.png';
 
   return (
     <div className="container" id="aboutPage">
@@ -29,9 +30,20 @@ function AboutPage() {
         <li>Express</li>
         <li>PostgreSQL</li>
       </ul>
-      <img src={ghQR} alt="githubQRcode" />
-      <a href="https://github.com/adamantdude">Github</a>
-      <a href="https://www.linkedin.com/in/adamlee222412/">LinkedIn</a>
+      <p>
+        Thank you!
+        <br></br>
+        Family and Friends
+        <br></br>
+        Prime Digital Academy
+        <br></br>
+        Ramirez Cohort
+      </p>
+      <img src={githubQR} />
+      <a href="https://github.com/adamantdude">Github / adamantdude</a>
+      <br></br>
+      <img src={linkedInQR} />
+      <a href="https://www.linkedin.com/in/adamlee222412/">LinkedIn / adamlee222412</a>
     </div>
   );
 }

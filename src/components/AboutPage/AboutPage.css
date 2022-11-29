@@ -5,3 +5,8 @@
     margin-left: 10%;
     margin-right: 10%;
 }
+
+#aboutPage img {
+    width: 150px;
+    height: 150px;
+}

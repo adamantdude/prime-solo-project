@@ -6,8 +6,7 @@ import { useHistory } from 'react-router-dom';
 function Messenger({ socket }) {
     const [
         [message, setMessage],
-        [messageList, setList],
-    ] = [useState(''), useState([])];
+    ] = [useState('')];
 
     const dispatch = useDispatch();
     const history = useHistory();
@@ -41,7 +40,7 @@ function Messenger({ socket }) {
             isMounted = false;
             socket.removeAllListeners();
         }
-    }, [messageList, messenger])
+    }, [messenger])
 
     const sendMessage = (e) => {
         e.preventDefault();
@@ -64,6 +63,10 @@ function Messenger({ socket }) {
         history.push(`/profile/${id}`);
     }
 
+    const autofill = () => {
+        setMessage('That sounds awesome! Can\'t wait to touch base later!')
+    }
+
     return (
         <div id="messengerPage">
             <h1 id="location">{messenger.currentRoom.room}</h1>
@@ -82,7 +85,7 @@ function Messenger({ socket }) {
                 </ul>
             </div>
             <div id="messaging">
-                <label htmlFor='messageList'>Messages:</label>
+                <label htmlFor='messageList' onClick={autofill}>Messages:</label>
                 <ul id="messageList">
                     {messenger.chatHistory.map(message => <li key={message.id}>{message.character_name} says, "{message.message}"</li>)}
                 </ul>
