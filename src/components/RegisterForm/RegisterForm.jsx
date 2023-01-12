@@ -27,7 +27,7 @@ function RegisterForm() {
 
   return (
     <Container>
-      <Typography fontWeight={'Bold'} fontSize={'20px'} onClick={autofill}>Register User</Typography>
+      <Typography fontWeight={'Bold'} fontSize={'20px'}>Register User</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
           {errors.registrationMessage}
