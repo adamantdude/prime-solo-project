@@ -27,7 +27,10 @@ import { io } from "socket.io-client";
 import WorldSelect from '../WorldSelect/WorldSelect';
 import OtherProfile from '../OtherProfile/OtherProfile';
 import { ThemeProvider, createTheme } from '@mui/material';
-const socket = io("http://localhost:3000", {
+
+const origin = process.env.ORIGIN || "http://localhost:3000";
+
+const socket = io(origin, {
   withCredentials: true,
   autoConnect: 10000
 });
