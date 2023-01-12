@@ -42,7 +42,7 @@ app.use(express.static('build'));
 // });
 
 const http = require('http'); // socket.io runs on http express server
-const port = 5000;
+const PORT = process.env.PORT || 5000;
 const cors = require('cors'); // Cross-Origin Resource Sharing
 // Allows users to send data back and forth
 // by telling the http server what origins are permitted
@@ -62,7 +62,7 @@ const server = http.createServer(app);
 // server just created, with a CORS header
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: process.env.ORIGIN || "http://localhost:3000",
     methods: ['GET', 'POST'],
   },
 });
@@ -128,7 +128,7 @@ io.on('connection', (socket) => {
 
 // http server listening...
 server.listen(port, () => {
-  console.log(`Socket.IO server running at http://localhost:${port}/`);
+  console.log(`Socket.IO server running at ${port}`);
 });
 
 // const clients = io.sockets.adapter.rooms.get(socket.id);
