@@ -127,8 +127,8 @@ io.on('connection', (socket) => {
 });
 
 // http server listening...
-server.listen(port, () => {
-  console.log(`Socket.IO server running at ${port}`);
+server.listen(PORT, () => {
+  console.log(`Socket.IO server running at ${PORT}`);
 });
 
 // const clients = io.sockets.adapter.rooms.get(socket.id);
