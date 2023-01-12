@@ -60,11 +60,10 @@ const server = http.createServer(app);
 
 // create the socket.io server and latch it onto the http
 // server just created, with a CORS header
-const origin = process.env.ORIGIN || "http://localhost:3000";
 
 const io = new Server(server, {
   cors: {
-    origin: origin,
+    origin: process.env.ORIGIN,
     methods: ['GET', 'POST'],
   },
 });

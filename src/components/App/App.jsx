@@ -28,9 +28,7 @@ import WorldSelect from '../WorldSelect/WorldSelect';
 import OtherProfile from '../OtherProfile/OtherProfile';
 import { ThemeProvider, createTheme } from '@mui/material';
 
-const origin = process.env.ORIGIN || "http://localhost:3000";
-
-const socket = io(origin, {
+const socket = io(process.env.ORIGIN, {
   withCredentials: true,
   autoConnect: 10000
 });
