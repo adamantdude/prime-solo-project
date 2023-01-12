@@ -25,12 +25,6 @@ function RegisterForm() {
     });
   }; // end registerUser
 
-  const autofill = () => {
-    setUsername('TheGoblinSlayer');
-    setPassword('GoblinSlayer');
-    setName('Marn Orcbolg');
-  }
-
   return (
     <Container>
       <Typography fontWeight={'Bold'} fontSize={'20px'} onClick={autofill}>Register User</Typography>
