@@ -4,6 +4,8 @@ import './LandingPage.css';
 
 // CUSTOM COMPONENTS
 import RegisterForm from '../RegisterForm/RegisterForm';
+import { Box, Container } from '@mui/system';
+import { Button, Typography } from '@mui/material';
 
 function LandingPage() {
   const [heading, setHeading] = useState('Welcome to Fableguild!');
@@ -14,30 +16,33 @@ function LandingPage() {
   };
 
   return (
-    <div className="container">
-      <h2>{heading}</h2>
+    <Container>
+      <Typography fontSize={'28px'} fontWeight={'Bold'} component={'header'}>{heading}</Typography>
 
-      <div className="grid">
-        <div className="grid-col grid-col_3">
-          <p>
-            A fantasy-based messaging app that is designed for 
+      <Box sx={({ 'display':'grid' })}>
+        <Box sx={({ 'flexBasis':'50%', 'maxWidth':'50%' })}>
+          <Typography paragraph>
+            A fantasy-based messaging app that is designed for
             the roleplay-inclined. Come share in adventures or merely chat with others
             about those adventures. Practice your roleplaying skills to dive into a new
             world!
-          </p>
-        </div>
-        <div className="grid-col grid-col_9">
+          </Typography>
+        </Box>
+
+        <Box sx={({ 'flexBasis':'33.3333%', 'maxWidth':'33.3333%' })}>
           <RegisterForm />
 
-          <center>
-            <h4>Already a Member?</h4>
-            <button className="btn btn_sizeSm" onClick={onLogin}>
+          <Box sx={({ 'alignItems':'center' })}>
+            <Typography fontWeight={'Bold'}>
+              Already a member?
+            </Typography>
+            <Button variant='contained' className="btn btn_sizeSm" onClick={onLogin}>
               Login
-            </button>
-          </center>
-        </div>
-      </div>
-    </div>
+            </Button>
+          </Box>
+        </Box>
+      </Box>
+    </Container>
   );
 }
 
