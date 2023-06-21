@@ -9,19 +9,16 @@ function RegisterPage() {
 
   return (
     <Container>
-      <Box>
+      <Box sx={({ textAlign: 'center' })}>
         <RegisterForm />
         <Box sx={({ 
-          display: 'inline-block', borderBottom: '1px solid black', marginTop: '20px',
-          paddingBottom: '3px', textAlign: 'center'
+          display: 'inline-flex', borderBottom: '1px solid black', marginTop: '20px',
+          paddingBottom: '3px', alignItems: 'center'
         })}>
-          <Typography sx={({  })}>
+          <Typography sx={({ mr: '10px' })}>
             Already have an account?
           </Typography>
           <Button
-            variant='outlined'
-            type="button"
-            className="btn btn_asLink"
             onClick={() => {
               history.push('/login');
             }}

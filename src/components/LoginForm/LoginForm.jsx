@@ -26,7 +26,7 @@ function LoginForm() {
   }; // end login
 
   return (
-    <Box component={'form'}>
+    <Box>
       <Typography variant='h4'>Login</Typography>
       <Box sx={({ display: 'inline-flex' })}>
         {errors.loginMessage && (
@@ -35,7 +35,7 @@ function LoginForm() {
           </Typography>
         )}
       </Box>
-      <Box sx={{ m: '10px' }}>
+      <Box sx={{ m: '10px' }} component={'form'}>
           <TextField
             label="Username"
             required
@@ -56,7 +56,6 @@ function LoginForm() {
         >
           Login
         </Button>
-        {/* <input className="btn" type="submit" name="submit" value="Log In" /> */}
       </Box>
     </Box>
   );

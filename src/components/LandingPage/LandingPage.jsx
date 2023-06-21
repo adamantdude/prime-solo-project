@@ -36,7 +36,7 @@ function LandingPage() {
               <Typography paragraph fontWeight={'Bold'}>
                 Already a member?
               </Typography>
-              <Button variant='outlined' className="btn btn_sizeSm" onClick={onLogin}>
+              <Button variant='outlined' onClick={onLogin}>
                 Login
               </Button>
             </Box>
