@@ -12,14 +12,14 @@ function RegisterPage() {
       <Box>
         <RegisterForm />
         <Box sx={({ 
-          display: 'inline-block', borderBottom: '1px solid black', marginTop: '20px', paddingBottom: '3px',
-          textAlign: 'center'
+          display: 'inline-block', borderBottom: '1px solid black', marginTop: '20px',
+          paddingBottom: '3px', textAlign: 'center'
         })}>
           <Typography sx={({  })}>
             Already have an account?
           </Typography>
           <Button
-            variant='contained'
+            variant='outlined'
             type="button"
             className="btn btn_asLink"
             onClick={() => {

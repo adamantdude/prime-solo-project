@@ -1,5 +1,4 @@
 import { Button, Grid, InputLabel, TextField, Typography } from '@mui/material';
-import { grey } from '@mui/material/colors';
 import { Box, Container } from '@mui/system';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -29,7 +28,7 @@ function RegisterForm() {
   }; // end registerUser
 
   return (
-    <Container>
+    <Container sx={({ display:'flex', flexDirection:'column', alignItems:'center' })}>
       <Typography fontWeight={'Bold'} fontSize={'20px'}>Register User</Typography>
       {errors.registrationMessage && (
         <h3 className="alert" role="alert">
