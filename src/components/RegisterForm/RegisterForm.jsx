@@ -1,4 +1,5 @@
-import { Button, InputLabel, TextField, Typography } from '@mui/material';
+import { Button, Grid, InputLabel, TextField, Typography } from '@mui/material';
+import { grey } from '@mui/material/colors';
 import { Box, Container } from '@mui/system';
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,6 +16,8 @@ function RegisterForm() {
   const dispatch = useDispatch();
 
   const registerUser = () => {
+    if(!username || !password || !charName) return;
+
     dispatch({
       type: 'REGISTER',
       payload: {
@@ -39,22 +42,21 @@ function RegisterForm() {
           value={username}
           required
           onChange={(event) => setUsername(event.target.value)}
+          sx={({ margin: '5px' })}
         ></TextField>
-      </Box>
-      <Box>
         <TextField
           label={'Password'}
           value={password}
           required
           onChange={(event) => setPassword(event.target.value)}
+          sx={({ margin: '5px' })}
         ></TextField>
-      </Box>
-      <Box>
         <TextField
           label={'Character Name'}
           value={charName}
           required
           onChange={(e) => setName(e.target.value)}
+          sx={({ margin: '5px' })}
         ></TextField>
       </Box>
       <Box>
