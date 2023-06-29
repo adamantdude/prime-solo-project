@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import './WorldSelect.css';
+import { Box, List, ListItem, Typography } from "@mui/material";
 
 function WorldSelect({ socket, user }) {
 
@@ -21,24 +22,28 @@ function WorldSelect({ socket, user }) {
             character_id: character.id
         });
         socket.emit('join_room', room, messenger.currentRoom.room);
-        dispatch({ type: 'JOIN_ROOM', payload: {room: room, id: id}});
+        dispatch({ type: 'JOIN_ROOM', payload: { room: room, id: id } });
         dispatch({ type: 'FETCH_CHAT_HISTORY', payload: id })
         history.push('/messenger');
     }
 
     return (
-        <div id="worldSelectPage">
+        <Box sx={{ backgroundColor: "#FFFFFF35", pl: "10%", pr: "10%" }}>
             {messenger.currentRoom.room ?
-                <h1>You are currently at: {messenger.currentRoom.room}</h1>
+                <Typography variant="h3">You are currently at: {messenger.currentRoom.room}</Typography>
                 :
-                <h1>Please select a location: </h1>
+                <Typography variant="h3">Please select a location: </Typography>
             }
-            {messenger.rooms && messenger.rooms.map(room =>
-                <div className="locationName" key={room.id} onClick={() => setLocation(room.name, room.id)}>
-                    <h2>{room.name}</h2>
-                </div>
-            )}
-        </div>
+            <Box sx={{ display:'flex', flexDirection:'column', alignItems:'center' }}>
+                <List>
+                    {messenger.rooms && messenger.rooms.map(room =>
+                        <ListItem className="locationName" key={room.id} onClick={() => setLocation(room.name, room.id)}>
+                            <Typography variant="h4">{room.name}</Typography>
+                        </ListItem>
+                    )}
+                </List>
+            </Box>
+        </Box>
     )
 }
 

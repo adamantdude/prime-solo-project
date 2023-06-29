@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import './Messenger.css';
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from 'react-redux';
@@ -68,14 +69,14 @@ function Messenger({ socket }) {
     }
 
     return (
-        <div id="messengerPage">
-            <h1 id="location">{messenger.currentRoom.room}</h1>
-            <div id="miniProfile">
+        <Box id="messengerPage">
+            <Typography id="location">{messenger.currentRoom.room}</Typography>
+            <Box id="miniProfile">
                 <h3>{character.full_name}</h3>
                 <p>Level : {character.level}</p>
                 <p>EXP : {character.exp}</p>
-            </div>
-            <div id="whoIsHere">
+            </Box>
+            <Box id="whoIsHere">
                 <label htmlFor='userList'>Who Is Here:</label>
                 <ul id="userList">
                     {messenger.usersInRoom.length > 0 &&
@@ -83,20 +84,20 @@ function Messenger({ socket }) {
                             <li key={y.user_id} onClick={() => viewOtherProfile(y.character_id)}>{y.character_name}</li>
                         )}
                 </ul>
-            </div>
-            <div id="messaging">
+            </Box>
+            <Box id="messaging">
                 <label htmlFor='messageList' onClick={autofill}>Messages:</label>
                 <ul id="messageList">
                     {messenger.chatHistory.map(message => <li key={message.id}>{message.character_name} says, "{message.message}"</li>)}
                 </ul>
-            </div>
-            <div id="messageBox">
+            </Box>
+            <Box id="messageBox">
                 <form onSubmit={sendMessage}>
                     <input type="text" value={message} onChange={(e) => setMessage(e.target.value)} />
                     <button>Send Message</button>
                 </form>
-            </div>
-        </div>
+            </Box>
+        </Box>
     )
 }
 
